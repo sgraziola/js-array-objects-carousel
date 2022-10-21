@@ -37,7 +37,7 @@ const carousel = [
 
 // Seleziono l'elemento della DOM dove inserire le immagini
 const carouselEl = document.querySelector(".col-10");
-
+const rowEl = document.querySelector(".row");
 //creo variabile per dare active alle immagini
 let activeGame = 0;
 
@@ -49,6 +49,10 @@ carousel.forEach((game,i)=> {
     const gameMarkup = cardMarkup(game.image,game.title,game.text);
    // console.log(gameMarkup);
     carouselEl.insertAdjacentHTML("beforeend",gameMarkup);
+    //aggiungo thumbanils
+    const thumbanils = thumbnailsMarkup(game.image);
+    rowEl.insertAdjacentHTML("beforeend", thumbanils);
+
    
     if(i === activeGame){
         const gameEl = document.querySelectorAll(".game");
@@ -86,8 +90,6 @@ leftBtnEl.addEventListener("click", function(){
 //right
 rightBtnEl.addEventListener("click", function(){
     const carouselGamesElements = document.querySelectorAll(".game");
-
-    console.log(carouselGamesElements);
     //selezione game con indice = 0 = activeGame perchè è la prima
     const mainGame = carouselGamesElements[activeGame];
     //allora rimuovo classe active dal mainGame
@@ -105,8 +107,18 @@ rightBtnEl.addEventListener("click", function(){
     nextGame.classList.add("active");
 })
 
+//selezione le col
+const colsEl = document.querySelectorAll(".col");
+for (let i = 0; i < colsEl.length; i++) {
+    const singleCol = colsEl[i];
+    singleCol.addEventListener("click", function() {
+        
+    });
+};
 
 
+
+//functions
 
 function cardMarkup(name, title, text) {
     const markup = `
@@ -117,3 +129,13 @@ function cardMarkup(name, title, text) {
     </div>`
     return markup;
 }
+
+function thumbnailsMarkup(name) {
+    const thumbMarkup = `
+    <div class="col">
+        <img src="./assets/${name}" alt="">
+    </div>`
+    return thumbMarkup;
+}
+
+
