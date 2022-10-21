@@ -17,6 +17,11 @@ img {
     display: block;
 }
 
+img.active{
+    border: 2px solid blue;
+    padding: 1px;
+}
+
 button{
     width: 30px;
     aspect-ratio: 1 / 1;

@@ -38,26 +38,29 @@ const carousel = [
 // Seleziono l'elemento della DOM dove inserire le immagini
 const carouselEl = document.querySelector(".col-10");
 const rowEl = document.querySelector(".row");
+
 //creo variabile per dare active alle immagini
 let activeGame = 0;
 
 //ciclo foreach per selezionare le immagini negli oggetti dell'array
 
 carousel.forEach((game,i)=> {
-   // console.log(thisImage.image);
-
+    // console.log(thisImage.image);
+    
     const gameMarkup = cardMarkup(game.image,game.title,game.text);
-   // console.log(gameMarkup);
+    // console.log(gameMarkup);
     carouselEl.insertAdjacentHTML("beforeend",gameMarkup);
     //aggiungo thumbanils
     const thumbanils = thumbnailsMarkup(game.image);
     rowEl.insertAdjacentHTML("beforeend", thumbanils);
-
-   
+    
+    
     if(i === activeGame){
         const gameEl = document.querySelectorAll(".game");
         gameEl[0].classList.add("active");
-        //console.log(imgEl);
+        const thumbsEl = document.querySelectorAll(".col > img");
+        thumbsEl[0].classList.add("active");
+        //console.log(gameEl);
     }
     
 });
@@ -67,14 +70,18 @@ carousel.forEach((game,i)=> {
 const leftBtnEl = document.querySelector("button.left");
 const rightBtnEl = document.querySelector("button.right");
 //Aggiungo eventListener "click" ai button left e right
-//left
-leftBtnEl.addEventListener("click", function(){
+//right
+rightBtnEl.addEventListener("click", function(){
     //console.log("vai su");
     const carouselGamesElements = document.querySelectorAll(".game");
     //selezione game con indice = 0 = activeGame perchè è la prima
     const mainGame = carouselGamesElements[activeGame];
     //allora rimuovo classe active dal main game
     mainGame.classList.remove("active");
+    //faccio lo stesso sulle thumbanails
+    const thumbsEl = document.querySelectorAll(".col > img");
+    const mainThumb = thumbsEl[activeGame];
+    mainThumb.classList.remove("active");    
     //incremento activeGame
     activeGame++;
     //Milestone2: infiniteLoop
@@ -85,15 +92,22 @@ leftBtnEl.addEventListener("click", function(){
     //quindi assegno classe active a nextGame
     const nextGame = carouselGamesElements[activeGame];
     nextGame.classList.add("active");
+    //idem per thumbnails
+    const nextThumb = thumbsEl[activeGame];
+    nextThumb.classList.add("active");
 })
 
-//right
-rightBtnEl.addEventListener("click", function(){
-    const carouselGamesElements = document.querySelectorAll(".game");
+//left
+const carouselGamesElements = document.querySelectorAll(".game");
+leftBtnEl.addEventListener("click", function(){
     //selezione game con indice = 0 = activeGame perchè è la prima
     const mainGame = carouselGamesElements[activeGame];
     //allora rimuovo classe active dal mainGame
     mainGame.classList.remove("active");
+    //faccio lo stesso sulle thumbnails
+    const thumbsEl = document.querySelectorAll(".col > img");
+    const mainThumb = thumbsEl[activeGame];
+    mainThumb.classList.remove("active"); 
     //decremento activeGame
     activeGame--;
     //quindi assegno classe active a nextGame
@@ -105,16 +119,56 @@ rightBtnEl.addEventListener("click", function(){
     };
     const nextGame = carouselGamesElements[activeGame];
     nextGame.classList.add("active");
+     //idem per thumbnails
+     const nextThumb = thumbsEl[activeGame];
+     nextThumb.classList.add("active");
+
 })
 
+
+
+
 //selezione le col
-const colsEl = document.querySelectorAll(".col");
-for (let i = 0; i < colsEl.length; i++) {
-    const singleCol = colsEl[i];
-    singleCol.addEventListener("click", function() {
-        
+const thumbsEl = document.querySelectorAll(".col > img");
+for (let i = 0; i < thumbsEl.length; i++) {
+    const singleThumb = thumbsEl[i];
+    const mainThumb = thumbsEl[activeGame];
+    singleThumb.addEventListener("click", function() {
+        console.log(`cliccato su`);
+        mainThumb.classList.remove("active");
+        activeGame++;
+        singleThumb.classList.add("active");
     });
 };
+
+
+
+//autoslide
+setInterval(function(){
+    //console.log("vai su");
+    const carouselGamesElements = document.querySelectorAll(".game");
+    //selezione game con indice = 0 = activeGame perchè è la prima
+    const mainGame = carouselGamesElements[activeGame];
+    //allora rimuovo classe active dal main game
+    mainGame.classList.remove("active");
+    //faccio lo stesso sulle thumbanails
+    const thumbsEl = document.querySelectorAll(".col > img");
+    const mainThumb = thumbsEl[activeGame];
+    mainThumb.classList.remove("active");    
+    //incremento activeGame
+    activeGame++;
+    //Milestone2: infiniteLoop
+    if (activeGame > carousel.length - 1){
+        activeGame = 0; 
+    //console.log(activeGame);  
+    };
+    //quindi assegno classe active a nextGame
+    const nextGame = carouselGamesElements[activeGame];
+    nextGame.classList.add("active");
+    //idem per thumbnails
+    const nextThumb = thumbsEl[activeGame];
+    nextThumb.classList.add("active");
+}, 3000);
 
 
 
