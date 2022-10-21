@@ -132,12 +132,13 @@ leftBtnEl.addEventListener("click", function(){
 const thumbsEl = document.querySelectorAll(".col > img");
 for (let i = 0; i < thumbsEl.length; i++) {
     const singleThumb = thumbsEl[i];
-    const mainThumb = thumbsEl[activeGame];
+    activeGame++;
+    //console.log(activeGame);
     singleThumb.addEventListener("click", function() {
-        console.log(`cliccato su`);
+        const mainThumb = thumbsEl[activeGame];
         mainThumb.classList.remove("active");
-        activeGame++;
-        singleThumb.classList.add("active");
+        const nextThumb = thumbsEl[i++];
+        nextThumb.classList.add("active");
     });
 };
 
@@ -168,7 +169,7 @@ setInterval(function(){
     //idem per thumbnails
     const nextThumb = thumbsEl[activeGame];
     nextThumb.classList.add("active");
-}, 3000);
+}, 113000);
 
 
 
