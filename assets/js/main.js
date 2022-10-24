@@ -70,11 +70,13 @@ carousel.forEach((game,i)=> {
 const leftBtnEl = document.querySelector("button.left");
 const rightBtnEl = document.querySelector("button.right");
 //Aggiungo eventListener "click" ai button left e right
+const carouselGamesElements = document.querySelectorAll(".game");
 //right
 rightBtnEl.addEventListener("click", function(){
+    console.log(carouselGamesElements);
     //console.log("vai su");
-    const carouselGamesElements = document.querySelectorAll(".game");
     //selezione game con indice = 0 = activeGame perchè è la prima
+    console.log(activeGame);
     const mainGame = carouselGamesElements[activeGame];
     //allora rimuovo classe active dal main game
     mainGame.classList.remove("active");
@@ -98,7 +100,6 @@ rightBtnEl.addEventListener("click", function(){
 })
 
 //left
-const carouselGamesElements = document.querySelectorAll(".game");
 leftBtnEl.addEventListener("click", function(){
     //selezione game con indice = 0 = activeGame perchè è la prima
     const mainGame = carouselGamesElements[activeGame];
@@ -132,7 +133,6 @@ leftBtnEl.addEventListener("click", function(){
 const thumbsEl = document.querySelectorAll(".col > img");
 for (let i = 0; i < thumbsEl.length; i++) {
     const singleThumb = thumbsEl[i];
-    activeGame++;
     //console.log(activeGame);
     singleThumb.addEventListener("click", function() {
         const mainThumb = thumbsEl[activeGame];
