@@ -169,7 +169,7 @@ setInterval(function(){
     //idem per thumbnails
     const nextThumb = thumbsEl[activeGame];
     nextThumb.classList.add("active");
-}, 113000);
+}, 3000);
 
 
 
